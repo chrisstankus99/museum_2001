@@ -7,6 +7,18 @@ class Museum
   end
 
   def add_exhibit(exhibit)
-    @exhibits << exhibit 
+    @exhibits << exhibit
+  end
+
+  def recommend_exhibits(patron)
+    recommended = []
+    exhibits.each do |exhibit|
+      patron.interests.each do |interest|
+        if exhibit.name == interest
+          recommended << exhibit
+        end
+      end
+    end
+    recommended
   end
 end
