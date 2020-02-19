@@ -22,11 +22,15 @@ class PatronTest < Minitest::Test
   def test_patron_has_no_interests
     assert_equal [], @patron_1.interests
   end
+
+  def test_patron_can_add_interest
+    @patron_1.add_interest("Dead Sea Scrolls")
+    @patron_1.add_interest("Gems and Minerals")
+
+    assert_equal ["Dead Sea Scrolls", "Gems and Minerals"], @patron_1.interests
+  end
 end
 
-# pry(main)> patron_1.interests
-# # => []
-#
 # pry(main)> patron_1.add_interest("Dead Sea Scrolls")
 #
 # pry(main)> patron_1.add_interest("Gems and Minerals")
