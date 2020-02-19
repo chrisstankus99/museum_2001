@@ -11,6 +11,8 @@ class MuseumTest < Minitest::Test
     @gems_and_minerals = Exhibit.new({name: "Gems and Minerals", cost: 0})
     @dead_sea_scrolls = Exhibit.new({name: "Dead Sea Scrolls", cost: 10})
     @imax = Exhibit.new({name: "IMAX",cost: 15})
+    @patron_1 = Patron.new("Bob", 20)
+    @patron_2 = Patron.new("Sally", 20)
   end
 
   def test_it_exists
@@ -29,17 +31,18 @@ class MuseumTest < Minitest::Test
 
     assert_equal [@gems_and_minerals, @dead_sea_scrolls, @imax], @dmns.exhibits
   end
+
+  def test_museum_can_recommend_exhibits
+    @patron_1.add_interest("Dead Sea Scrolls")
+    @patron_1.add_interest("Gems and Minerals")
+    @patron_2.add_interest("IMAX")
+
+    assert_equal [@dead_sea_scrolls, @gems_and_minerals], @dmns.recommend_exhibits(@patron_1)
+
+    assert_equal [@imax], @dmns.recommend_exhibits(@patron_2)
+  end
 end
 
-# pry(main)> dmns.add_exhibit(gems_and_minerals)
-#
-# pry(main)> dmns.add_exhibit(dead_sea_scrolls)
-#
-# pry(main)> dmns.add_exhibit(imax)
-#
-# pry(main)> dmns.exhibits
-# # => [#<Exhibit:0x00007fb400bbcdd8...>, #<Exhibit:0x00007fb400b851f8...>, #<Exhibit:0x00007fb400acc590...>]
-#
 # pry(main)> patron_1 = Patron.new("Bob", 20)
 # # => #<Patron:0x00007fb400a51cc8...>
 #
